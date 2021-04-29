@@ -1,0 +1,59 @@
+import react,{Component, component} from 'react'
+import axios from 'axios'
+class Medlemmar extends Component
+{
+    state={
+        lamporlist:[]
+    }
+    componentDidMount()
+    {
+        axios.get('http://193.10.202.72/membersAPI/api/Members').then(res=>
+        {
+            console.log(res.data)
+            this.setState({
+                lamporlist:res.data
+            })
+        })
+    }
+    render()
+        {
+            return(
+                <div>
+                    <h1>Medlemmar från API</h1>
+            {this.state.lamporlist.map(artiklar=>{
+                    return(
+                        <div>
+                             <table>
+                                 <thead>
+                            <tr>
+                        <th>Personnummer</th>
+                        <th>Förnamn</th>
+                        <th>Efternamn</th>
+                        <th>Email</th>
+                        <th>Telefonnr</th>
+                        <th>Startdatum</th>
+                        <th>Slutdatum</th>
+                        <th>Medlemskapsid</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                            <td>{artiklar.socialSecurityNumber}</td>
+                            <td>{artiklar.firstName}</td>
+                            <td>{artiklar.lastName}</td>
+                            <td>{artiklar.email}</td>
+                            <td>{artiklar.phoneNumber}</td>
+                            <td>{artiklar.startDate}</td>
+                            <td>{artiklar.endDate}</td>
+                            <td>{artiklar.memberShipId}</td>
+                            </tr>
+                         </tbody>
+                            </table>
+                        </div>
+                    )
+                })}
+                </div>
+            )
+        }      
+}
+export default Medlemmar;
